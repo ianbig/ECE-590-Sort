@@ -58,6 +58,24 @@ MergeSort
 """
 def MergeSort(listToSort):
     return listToSort
+"""
+partition
+
+usage: divide number lower than pivot to left side, and otherwise to right side of pivot
+return: retutn pivot location
+"""
+
+def partition(listToSort, left, right):
+    low = left - 1
+    pivot = listToSort[right]
+    for cur in range(left, right):
+        if (listToSort[cur] < pivot):
+            low += 1
+            swap(listToSort, low, cur)
+            pass
+        pass
+    swap(listToSort, low + 1, right)
+    return low + 1
 
 """
 QuickSort
@@ -67,8 +85,16 @@ or additionally specify i and j.
 """
 def QuickSort(listToSort, i=0, j=None):
     # Set default value for j if None.
+    # import pdb; pdb.set_trace()
     if j == None:
-        j = len(listToSort)
+        j = len(listToSort) - 1
+        pass
+    if (i >= j):
+        return
+    
+    pivot = partition(listToSort, i, j)
+    QuickSort(listToSort, i, pivot - 1)
+    QuickSort(listToSort, pivot + 1, j)
     return listToSort
 
 """

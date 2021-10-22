@@ -1,0 +1,6 @@
+from project1 import *
+
+
+numList = [80,10,30,90,40,50,70]
+QuickSort(numList)
+print(numList)
