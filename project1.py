@@ -1,5 +1,5 @@
 """
-Math 560
+ Math 560
 Project 1
 Fall 2021
 
@@ -54,10 +54,69 @@ def BubbleSort(listToSort):
     return listToSort
 
 """
+Merge
+
+usage:
+return:
+"""
+
+def Merge(left, right):
+    li = 0
+    ri = 0
+    retList = []
+
+    # print(left)
+    # print(right)
+
+    while (li < len(left) and ri < len(right)):
+        if (left[li] < right[ri]):
+            retList.append(left[li])
+            li += 1
+            pass
+        else:
+            retList.append(right[ri])
+            ri += 1
+            pass
+        pass
+
+    while (li < len(left)):
+        retList.append(left[li])
+        li += 1
+        pass
+        
+    while (ri < len(right)):
+        retList.append(right[ri])
+        ri += 1
+        pass
+    
+    # print('Merged: ' + str(retList))
+    return retList
+
+"""
 MergeSort
 """
+def MergeSort_help(listToSort):
+    # import pdb; pdb.set_trace()
+    if (len(listToSort) == 1):
+        # print(listToSort)
+        return listToSort
+    
+    mid = len(listToSort) // 2
+    left = listToSort[:mid]
+    right = listToSort[mid:]
+    
+    left = MergeSort_help(left)
+    right = MergeSort_help(right)
+    retList = Merge(left, right)
+    
+    return retList
+
+import copy
 def MergeSort(listToSort):
+    # import pdb; pdb.set_trace()
+    listToSort[:]  = MergeSort_help(listToSort)
     return listToSort
+
 """
 partition
 
@@ -67,6 +126,7 @@ return: retutn pivot location
 
 def partition(listToSort, left, right):
     low = left - 1
+    right -= 1
     pivot = listToSort[right]
     for cur in range(left, right):
         if (listToSort[cur] < pivot):
@@ -86,14 +146,16 @@ or additionally specify i and j.
 def QuickSort(listToSort, i=0, j=None):
     # Set default value for j if None.
     # import pdb; pdb.set_trace()
+    # print('i: ' + str(i) + 'j:' + str(j))
+    # print(listToSort)
     if j == None:
-        j = len(listToSort) - 1
+        j = len(listToSort)
         pass
     if (i >= j):
         return
     
     pivot = partition(listToSort, i, j)
-    QuickSort(listToSort, i, pivot - 1)
+    QuickSort(listToSort, i, pivot)
     QuickSort(listToSort, pivot + 1, j)
     return listToSort
 
